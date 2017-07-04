@@ -1,14 +1,20 @@
 FROM alpine:3.4
-MAINTAINER Kristoffer Ahl <kristoffer.ahl@dotnetmentor.se>
 
-ENV BUILD_DEPS="gettext"  \
-    RUNTIME_DEPS="libintl"
+LABEL \
+ MAINTAINER='Steven Aldinger <stevenaldinger@gmail.com>' \
+ SERVICE='Envsubst for Kubernetes init-containers'
 
-RUN apk add --update $RUNTIME_DEPS && \
-    apk add --virtual build_deps $BUILD_DEPS &&  \
-    cp /usr/bin/envsubst /usr/local/bin/envsubst && \
-    apk del build_deps
+ENV \
+ BUILD_DEPS='gettext'  \
+ RUNTIME_DEPS='libintl'
 
-COPY ./entrypoint.sh /usr/bin/entrypoint.sh
+RUN apk add --update $RUNTIME_DEPS \
+ && apk add --virtual build_deps $BUILD_DEPS \
+ && cp /usr/bin/envsubst /usr/local/bin/envsubst \
+ && apk del build_deps
 
-ENTRYPOINT [ "entrypoint.sh" ]
+COPY file_generator.sh /usr/bin/file_generator
+
+RUN chmod a+x /usr/bin/file_generator
+
+CMD file_generator

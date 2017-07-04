@@ -2,4 +2,4 @@
 
 readonly subst="$(echo "$@" | envsubst)"
 set -- "$subst"
-echo "$@"
+echo "$@" > $OUTPUT_DESTINATION

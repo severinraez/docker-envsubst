@@ -1,11 +1,8 @@
-# Envsubst in docker
+# Envsubst in docker and Kubernetes
 
-## Usage
+This is a fork of [docker-envsubst](https://github.com/kristofferahl/docker-envsubst) modified to be more friendly for use in Kubernetes init-containers.
 
-    declare input="Image: kristofferahl/envsubst. Version: \${VERSION}."
-    docker run --rm -e "VERSION=1.0.1" kristofferahl/envsubst "$input"
-
-NOTE: Use quotes for input to preserve newline characters
+Pull [stevenaldinger/k8s-envsubst](https://hub.docker.com/r/stevenaldinger/k8s-envsubst/)
 
 ## Build
 
